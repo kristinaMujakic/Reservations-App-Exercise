@@ -1,9 +1,22 @@
 /** Database for lunchly */
+const { Client } = require('pg');
+const config = require('./config');
 
-const pg = require("pg");
+const { username, password, hostname, port } = config;
 
-const db = new pg.Client("postgresql:///lunchly");
+const connectionString = `postgres://${username}:${password}@${hostname}:${port}/lunchly`;
 
-db.connect();
+const db = new Client({
+    connectionString: connectionString
+});
+
+db.connect()
+    .then(() => {
+        console.log('Connected to the PostgreSQL database');
+    })
+    .catch((error) => {
+        //  throw new Error('SASL: SCRAM-SERVER-FIRST-MESSAGE: client password must be a string')
+        console.error('Error connecting to the database:', error.message);
+    });
 
 module.exports = db;
