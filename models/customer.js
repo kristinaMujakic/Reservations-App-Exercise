@@ -42,7 +42,9 @@ class Customer {
       [id]
     );
 
+
     const customer = results.rows[0];
+    console.log('CUSTOMER', customer);
 
     if (customer === undefined) {
       const err = new Error(`No such customer: ${id}`);
@@ -53,6 +55,26 @@ class Customer {
     return new Customer(customer);
   }
 
+  // return full name
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+
+  set notes(val) {
+    this._notes = val || "";
+  }
+
+  get notes() {
+    return this._notes;
+  }
+
+  set phone(val) {
+    this._phonephone = val || null;
+  }
+
+  get phone() {
+    return this._phone;
+  }
   /** get all reservations for this customer. */
 
   async getReservations() {
